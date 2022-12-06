@@ -7,10 +7,9 @@ from api.views.LoginView import *
 route = routers.DefaultRouter()
 route.register(r'cadastro/gerente', CadastroGerenteViewSet)
 route.register(r'cadastro/usuario', CadastroUsuarioViewSet)
-# route.register(r'login/usuario', LoginView)
 
 
 urlpatterns = [
     path('', include(route.urls)),
-    path('login/usuario/', LoginView.as_view()),
+    path('login/', LoginView.as_view()),
 ]
