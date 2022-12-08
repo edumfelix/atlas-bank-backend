@@ -11,12 +11,17 @@ class CadastroGerente(serializers.ModelSerializer):
   class Meta:
     model = CadastroModel
     fields = [
-      'id',
+            'id',
       'first_name',
       'last_name',
       'username',
       'email',
+      'cpf', 
+      'cep', 
+      'gender',
+      'phone',
       'birth_date',
+      'is_staff',
       'password'
     ]
 
