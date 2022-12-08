@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from django.contrib.auth.models import User
 from api.serializers.LoginSerializer import LoginSerializer
 
-class LoginView(views.APIView):
+class Login(views.APIView):
     permission_classes = (permissions.AllowAny,)
 
     def post(self, request, format=None):
