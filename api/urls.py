@@ -4,7 +4,8 @@ from rest_framework import routers
 from api.views.CadastroView import *
 from api.views.LoginView import Login
 from api.views.LogoutView import Logout
-route = routers.DefaultRouter()
+
+route = routers.SimpleRouter()
 route.register(r'cadastro/gerente', CadastroGerenteViewSet)
 route.register(r'cadastro/usuario', CadastroUsuarioViewSet)
 

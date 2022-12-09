@@ -6,12 +6,12 @@ class CadastroGerente(serializers.ModelSerializer):
   password = serializers.CharField (
       style={'input_type': 'password'},
       write_only=True,
-      label="Senha"
+      label="Password"
   )
   class Meta:
     model = CadastroModel
     fields = [
-            'id',
+      'id',
       'first_name',
       'last_name',
       'username',
