@@ -17,5 +17,5 @@ urlpatterns = [
     path('login/', Login.as_view()),
     path('logout/', Logout.as_view()),    
     path('perfil/', ProfileView.as_view()),
-    path('/api/setcsrf/', setCSRFCookie.as_view())
+    path('api/setcsrf/', setCSRFCookie.as_view())
 ]
