@@ -6,10 +6,10 @@ from django.views.decorators.csrf import csrf_protect
 from django.utils.decorators import method_decorator
 
 csrf_protect_method = method_decorator(csrf_protect)
-@csrf_protect_method
 class Login(views.APIView):
     permission_classes = (permissions.AllowAny,)
 
+    @csrf_protect_method
     def post(self, request, format=None):
         serializer = LoginSerializer(data=self.request.data,
             context={ 'request': self.request })
