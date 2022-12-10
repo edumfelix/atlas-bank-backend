@@ -3,7 +3,7 @@ from rest_framework import viewsets
 from ..serializers.CadastroGerente import *
 from ..serializers.CadastroUsuario import *
 from ..models.Cadastro import *
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAdminUser
 
 class CadastroUsuarioViewSet(viewsets.ModelViewSet):
     queryset = CadastroModel.objects.all()
@@ -13,3 +13,4 @@ class CadastroUsuarioViewSet(viewsets.ModelViewSet):
 class CadastroGerenteViewSet(viewsets.ModelViewSet):
     queryset = CadastroModel.objects.all()
     serializer_class = CadastroGerente
+    permission_classes = [IsAdminUser]

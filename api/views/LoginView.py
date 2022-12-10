@@ -1,7 +1,6 @@
 from rest_framework import permissions, views, status
 from django.contrib.auth import login
 from rest_framework.response import Response
-from django.contrib.auth.models import User
 from api.serializers.LoginSerializer import LoginSerializer
 
 class Login(views.APIView):

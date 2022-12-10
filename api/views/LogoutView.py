@@ -6,4 +6,4 @@ from django.contrib.auth import logout
 class Logout(APIView):
     def get(self, request, format=None):
         logout(request)
-        return Response(status=status.HTTP_200_OK)
+        return Response(status=status.HTTP_202_ACCEPTED)
