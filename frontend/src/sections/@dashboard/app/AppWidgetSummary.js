@@ -7,6 +7,7 @@ import { fCurrency } from '../../../utils/formatNumber';
 // components
 import Iconify from '../../../components/iconify';
 
+
 // ----------------------------------------------------------------------
 
 const StyledIcon = styled('div')(({ theme }) => ({
@@ -30,7 +31,8 @@ AppWidgetSummary.propTypes = {
   sx: PropTypes.object,
 };
 
-export default function AppWidgetSummary({ title, icon, total = 'default', color = 'primary', sx, ...other }) {
+export default function AppWidgetSummary({ title, icon, total = 'default', color = 'primary', onClick = 'default', sx, ...other }) {
+
   return (
     <Card
       sx={{
@@ -41,6 +43,7 @@ export default function AppWidgetSummary({ title, icon, total = 'default', color
         color: (theme) => theme.palette[color].darker,
         bgcolor: (theme) => theme.palette[color].lighter,
         ...sx,
+        textDecoration: 'none',
       }}
       {...other}
     >
@@ -69,7 +72,8 @@ export default function AppWidgetSummary({ title, icon, total = 'default', color
             {title}
           </Typography>
           <Typography component="h1" variant="h3" sx={{ opacity: 0.72 }}>
-            {fCurrency(total)}
+            {/* {fCurrency(total)} */}
+            {total}
           </Typography>
         </>
       )}

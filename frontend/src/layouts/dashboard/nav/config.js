@@ -28,7 +28,7 @@ export const navConfig = [
   },
   {
     title: 'login',
-    path: '/login',
+    path: '/signin',
     icon: icon('ic_lock'),
   },
   {

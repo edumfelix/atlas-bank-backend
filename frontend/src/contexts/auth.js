@@ -1,4 +1,5 @@
-import { createContext, useEffect, useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import React, { createContext, useEffect, useState, useContext } from "react";
 
 import axios from "axios";
 import api from "../providers/services/api";
@@ -6,6 +7,7 @@ import api from "../providers/services/api";
 export const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
+  const navigate = useNavigate();
   const [userData, setUserData] = useState("");
 
   const getDefaultUrl = async () => {
@@ -18,12 +20,32 @@ export const AuthProvider = ({ children }) => {
     getDefaultUrl();
   }, []);
 
+  // useEffect(() => {
+  //   if (typeof userData !== 'object' && !userData.hasOwnProperty("id")) {
+  //     return;
+  //   }
+  //   if (userData.hasOwnProperty("balance")) {
+  //     return;
+  //   }
+  //   const balanceUrl = `http://127.0.0.1:8000/cadastro/usuario/${userData.id}/`;
+  //   const response = axios.get(balanceUrl, { withCredentials: true }).then((response) => {
+  //     setUserData(response.data);
+  //   });
+  //   return response;
+  // }, [userData]);
+
   const getUserData = async () => {
-    const response = axios.get("/perfil/", { withCredentials: true }).then((response) => {
-      console.log("response", response);
-      setUserData(response.data);
+    const responseProfile = axios.get("/perfil/", { withCredentials: true }).then((response) => {
+      console.log("response profile", response);
+      const balanceUrl = `http://127.0.0.1:8000/cadastro/usuario/${response.data.id}/`;
+      const responseInfos = axios.get(balanceUrl, { withCredentials: true }).then((responseInfos) => {
+        console.log("response infos", responseInfos);
+        setUserData(responseInfos.data);
+      });
+      return responseInfos;
+      // setUserData(response.data);
     });
-    return response;
+    return responseProfile;
   };
 
   const login = async (payload) => {
@@ -37,6 +59,7 @@ export const AuthProvider = ({ children }) => {
     const url = "http://127.0.0.1:8000/logout/";
     const response = await axios.get(url).then((response) => {
       setUserData("");
+      navigate("/signin", { replace: true });
     });
     return response;
   };
