@@ -22,6 +22,7 @@ class CadastroUsuario(serializers.ModelSerializer):
       'phone',
       'birth_date',
       'balance',
+      'is_active',
       'password'
     ]
 
