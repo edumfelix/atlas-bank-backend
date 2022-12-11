@@ -6,6 +6,7 @@ from api.views.LoginView import Login
 from api.views.LogoutView import Logout
 from api.views.ProfileView import ProfileView
 from api.views.TestView import setCSRFCookie
+from api.views.FrontEndView import index
 
 route = routers.SimpleRouter()
 route.register(r'cadastro/gerente', CadastroGerenteViewSet)
@@ -14,6 +15,7 @@ route.register(r'cadastro/usuario', CadastroUsuarioViewSet)
 
 urlpatterns = [
     path('', include(route.urls)),
+    path('', index, name='index'),
     path('login/', Login.as_view()),
     path('logout/', Logout.as_view()),    
     path('perfil/', ProfileView.as_view()),
