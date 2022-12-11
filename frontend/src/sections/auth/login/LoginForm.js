@@ -2,13 +2,12 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-// @mui
+import Swal from 'sweetalert2';
+
 import { Link, Stack, IconButton, InputAdornment, TextField, Button } from '@mui/material';
-import { LoadingButton } from '@mui/lab';
-// components
+
 import Iconify from '../../../components/iconify';
 
-import api from '../../../providers/services/api';
 import { useAuthContext } from '../../../hooks/useAuthContext';
 
 const InputField = ({ formik, name, label, type = "text", ...other }) => (
@@ -27,10 +26,15 @@ const InputField = ({ formik, name, label, type = "text", ...other }) => (
   />
 );
 
-// ----------------------------------------------------------------------
-
 export default function LoginForm() {
-  const { userData, getUserData, login } = useAuthContext();
+  const navigate = useNavigate();
+  const { userData, login } = useAuthContext();
+
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleRegister = () => {
+    navigate('/user/register', { replace: true });
+  }
 
   const formik = useFormik({
     initialValues: {
@@ -42,16 +46,11 @@ export default function LoginForm() {
       password: yup.string().max(255).required('Senha é obrigatória')
     }),
     onSubmit: async (values, { setErrors, setStatus, setSubmitting }) => {
-        // setStatus({ success: true });
-        // setSubmitting(false);
-        // navigate('/dashboard/app', { replace: true });
       try {
-
         const response = await login(values);
         if (response.status !== 202) {
           return;
         }
-        console.log("userData", userData);
         setStatus({ success: true });
         setSubmitting(false);
         navigate('/dashboard/app', { replace: true });
@@ -60,17 +59,15 @@ export default function LoginForm() {
         setStatus({ success: false });
         setErrors({ submit: err.message });
         setSubmitting(false);
+        Swal.fire({
+          title: 'Erro!',
+          text: "Usuário ou senha incorretos! Tente novamente!",
+          icon: 'error',
+          confirmButtonText: 'Ok'
+        });
       }
     }
   });
-
-  const navigate = useNavigate();
-
-  const [showPassword, setShowPassword] = useState(false);
-
-  const handleRegister = () => {
-    navigate('/user/register', { replace: true });
-  }
 
   return (
     <form onSubmit={formik.handleSubmit}>
@@ -101,9 +98,6 @@ export default function LoginForm() {
       </Stack>
 
       <Stack direction="column" alignItems="flex-end" justifyContent="flex-end" sx={{ my: 2 }}>
-        <Link variant="subtitle2" underline="hover" gutterBottom sx={{ cursor: "pointer" }} >
-          Esqueceu sua senha?
-        </Link>
         <Link variant="subtitle2" underline="hover" sx={{cursor: "pointer"}} onClick={handleRegister}>
           Não tem cadastro? Faça seu cadastro agora!
         </Link>

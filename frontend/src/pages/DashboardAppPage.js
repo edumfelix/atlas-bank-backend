@@ -1,19 +1,14 @@
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import React from 'react';
 
-import { alpha } from '@mui/material/styles';
-import { useTheme } from '@mui/material/styles';
-import { Grid, Container, Typography, Box } from '@mui/material';
+import { Grid, Container, } from '@mui/material';
 
 import {
   AppWidgetSummary,
 } from '../sections/@dashboard/app';
 
-import account from '../_mock/account';
 import { useAuthContext } from '../hooks/useAuthContext';
-
-// ----------------------------------------------------------------------
 
 export default function DashboardAppPage() {
   const navigate = useNavigate();
@@ -28,7 +23,7 @@ export default function DashboardAppPage() {
       <Container maxWidth="xl">
         <Grid container spacing={2}>
           <Grid item xs={12} sm={12} md={12}>
-            <AppWidgetSummary title="Saldo" total={userData.balance ?? account.balance} color="info" icon={'mdi:cash'} />
+            <AppWidgetSummary title="Saldo" total={`R$ ${userData.balance ?? 10000}`} color="info" icon={'mdi:cash'} />
           </Grid>
           <Grid item xs={12} sm={6} md={6} sx={{cursor: "pointer"}} onClick={() => navigate('/dashboard/deposit')}>
             <AppWidgetSummary title="Realizar Depósito" icon={'mdi:instant-deposit'} />
@@ -38,11 +33,7 @@ export default function DashboardAppPage() {
             <AppWidgetSummary title="Realizar Saque" color="info" icon={'uil:money-withdrawal'} />
           </Grid>
 
-          <Grid item xs={12} sm={6} md={6} sx={{cursor: "pointer"}}>
-            <AppWidgetSummary title="Solicitar Empréstimo" color="warning" icon={'fluent:building-bank-toolbox-24-filled'} />
-          </Grid>
-
-          <Grid item xs={12} sm={6} md={6} onClick={() => logout()} sx={{cursor: "pointer"}}>
+          <Grid item xs={12} sm={12} md={12} onClick={() => logout()} sx={{cursor: "pointer"}}>
             <AppWidgetSummary title="Sair" color="error" icon={'fluent:arrow-exit-20-filled'} />
           </Grid>
 

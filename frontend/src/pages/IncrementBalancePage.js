@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import Swal from 'sweetalert2';
 
 import { Box, Typography, Button, InputAdornment, Container, Grid, TextField } from '@mui/material';
 
@@ -36,16 +37,6 @@ export default function IncrementBalancePage() {
     validationSchema: Yup.object().shape({
       amount: Yup.string().required('Valor é obrigatório'),
     }),
-    // onSubmit: (values) => {
-    //   const amountNumber = parseFloat(values.amount);
-    //   const balanceNumber = parseFloat('50.50');
-
-    //   console.log("amount", amountNumber);
-    //   console.log("balance", balanceNumber);
-    //   console.log("sum", parseFloat(amountNumber + balanceNumber).toFixed(2));
-    //   console.log("sum without parse float", amountNumber + balanceNumber);
-
-    // },
     onSubmit: async (values, { setErrors, setStatus, setSubmitting }) => {
       const amountNumber = parseFloat(values.amount);
       const balanceNumber = parseFloat(userData.balance);
@@ -64,6 +55,12 @@ export default function IncrementBalancePage() {
         setStatus({ success: false });
         setErrors({ submit: err.message });
         setSubmitting(false);
+        Swal.fire({
+          title: 'Erro!',
+          text: "Não foi possível depositar o valor, tente novamente.",
+          icon: 'error',
+          confirmButtonText: 'Ok'
+        });
       }
     },
   });

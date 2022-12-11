@@ -3,14 +3,10 @@ import { Navigate, useRoutes } from 'react-router-dom';
 import DashboardLayout from './layouts/dashboard';
 import SimpleLayout from './layouts/simple';
 
-import BlogPage from './pages/BlogPage';
-import UserPage from './pages/UserPage';
 import LoginPage from './pages/LoginPage';
 import Page404 from './pages/Page404';
-import ProductsPage from './pages/ProductsPage';
 import DashboardAppPage from './pages/DashboardAppPage';
 import RegisterUserPage from './pages/RegisterUserPage';
-import RegisterManagerPage from './pages/RegisterManagerPage';
 import IncrementBalancePage from './pages/IncrementBalancePage';
 import DecrementBalancePage from './pages/DecrementBalancePage';
 
@@ -20,7 +16,6 @@ const ProtectedRoutePage = ({ Item }) => {
   const { userData } = useAuthContext();
 
   return typeof userData !== 'object' ? <LoginPage /> : <Item />;
-  // return <Item />;
 };
 
 export default function Router() {
@@ -33,10 +28,6 @@ export default function Router() {
         { path: 'app', element: <DashboardAppPage /> },
         { path: 'deposit', element: <IncrementBalancePage /> },
         { path: 'withdrawal', element: <DecrementBalancePage /> },
-        { path: 'user', element: <UserPage /> },
-        { path: 'manager/register', element: <RegisterManagerPage /> },
-        { path: 'products', element: <ProductsPage /> },
-        { path: 'blog', element: <BlogPage /> },
       ],
     },
     {

@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
+import Swal from 'sweetalert2';
 
 import { Box, Typography, Button, InputAdornment, Container, Grid, TextField } from '@mui/material';
 
@@ -44,7 +45,12 @@ export default function IncrementBalancePage() {
         setStatus({ success: false });
         setErrors({ submit: 'Saldo insuficiente' });
         setSubmitting(false);
-        return;
+        return Swal.fire({
+          title: 'Erro!',
+          text: "Saldo insuficiente",
+          icon: 'error',
+          confirmButtonText: 'Ok',
+        });
       };
 
       try {
