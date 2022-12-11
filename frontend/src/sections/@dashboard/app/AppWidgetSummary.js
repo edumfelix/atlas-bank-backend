@@ -72,7 +72,6 @@ export default function AppWidgetSummary({ title, icon, total = 'default', color
             {title}
           </Typography>
           <Typography component="h1" variant="h3" sx={{ opacity: 0.72 }}>
-            {/* {fCurrency(total)} */}
             {total}
           </Typography>
         </>

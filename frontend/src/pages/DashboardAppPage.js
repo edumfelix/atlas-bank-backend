@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import React from 'react';
 
@@ -15,6 +16,7 @@ import { useAuthContext } from '../hooks/useAuthContext';
 // ----------------------------------------------------------------------
 
 export default function DashboardAppPage() {
+  const navigate = useNavigate();
   const { logout, userData } = useAuthContext();
 
   return (
@@ -26,15 +28,13 @@ export default function DashboardAppPage() {
       <Container maxWidth="xl">
         <Grid container spacing={2}>
           <Grid item xs={12} sm={12} md={12}>
-            {/* value after */}
             <AppWidgetSummary title="Saldo" total={userData.balance ?? account.balance} color="info" icon={'mdi:cash'} />
-            {/* <AppWidgetSummary title="Saldo" total={account.balance} color="info" icon={'mdi:cash'} /> */}
           </Grid>
-          <Grid item xs={12} sm={6} md={6} sx={{cursor: "pointer"}}>
+          <Grid item xs={12} sm={6} md={6} sx={{cursor: "pointer"}} onClick={() => navigate('/dashboard/deposit')}>
             <AppWidgetSummary title="Realizar Depósito" icon={'mdi:instant-deposit'} />
           </Grid>
 
-          <Grid item xs={12} sm={6} md={6} sx={{cursor: "pointer"}}>
+          <Grid item xs={12} sm={6} md={6} sx={{cursor: "pointer"}} onClick={() => navigate('/dashboard/withdrawal')}>
             <AppWidgetSummary title="Realizar Saque" color="info" icon={'uil:money-withdrawal'} />
           </Grid>
 

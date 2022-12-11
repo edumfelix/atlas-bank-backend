@@ -11,6 +11,8 @@ import ProductsPage from './pages/ProductsPage';
 import DashboardAppPage from './pages/DashboardAppPage';
 import RegisterUserPage from './pages/RegisterUserPage';
 import RegisterManagerPage from './pages/RegisterManagerPage';
+import IncrementBalancePage from './pages/IncrementBalancePage';
+import DecrementBalancePage from './pages/DecrementBalancePage';
 
 import { useAuthContext } from './hooks/useAuthContext';
 
@@ -29,6 +31,8 @@ export default function Router() {
       children: [
         { element: <Navigate to='/dashboard/app' />, index: true },
         { path: 'app', element: <DashboardAppPage /> },
+        { path: 'deposit', element: <IncrementBalancePage /> },
+        { path: 'withdrawal', element: <DecrementBalancePage /> },
         { path: 'user', element: <UserPage /> },
         { path: 'manager/register', element: <RegisterManagerPage /> },
         { path: 'products', element: <ProductsPage /> },

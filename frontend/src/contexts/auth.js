@@ -1,8 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import React, { createContext, useEffect, useState, useContext } from "react";
+import React, { createContext, useEffect, useState } from "react";
 
 import axios from "axios";
-import api from "../providers/services/api";
 
 export const AuthContext = createContext({});
 
@@ -20,30 +19,13 @@ export const AuthProvider = ({ children }) => {
     getDefaultUrl();
   }, []);
 
-  // useEffect(() => {
-  //   if (typeof userData !== 'object' && !userData.hasOwnProperty("id")) {
-  //     return;
-  //   }
-  //   if (userData.hasOwnProperty("balance")) {
-  //     return;
-  //   }
-  //   const balanceUrl = `http://127.0.0.1:8000/cadastro/usuario/${userData.id}/`;
-  //   const response = axios.get(balanceUrl, { withCredentials: true }).then((response) => {
-  //     setUserData(response.data);
-  //   });
-  //   return response;
-  // }, [userData]);
-
   const getUserData = async () => {
     const responseProfile = axios.get("/perfil/", { withCredentials: true }).then((response) => {
-      console.log("response profile", response);
       const balanceUrl = `http://127.0.0.1:8000/cadastro/usuario/${response.data.id}/`;
       const responseInfos = axios.get(balanceUrl, { withCredentials: true }).then((responseInfos) => {
-        console.log("response infos", responseInfos);
         setUserData(responseInfos.data);
       });
       return responseInfos;
-      // setUserData(response.data);
     });
     return responseProfile;
   };
@@ -70,9 +52,15 @@ export const AuthProvider = ({ children }) => {
     return response;
   };
 
+  const modifyBalance = async (payload) => {
+    const balanceUrl = `http://127.0.0.1:8000/cadastro/usuario/${userData.id}/`;
+    const response = await axios.patch(balanceUrl, payload);
+    return response;
+  };
+
   return (
     <AuthContext.Provider
-      value={{ userData, getUserData, login, logout, registerUser }}
+      value={{ userData, getUserData, login, logout, registerUser, modifyBalance }}
     >
       {children}
     </AuthContext.Provider>
