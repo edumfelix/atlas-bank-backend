@@ -22,6 +22,7 @@ class CadastroGerente(serializers.ModelSerializer):
       'phone',
       'birth_date',
       'is_staff',
+      'is_active',
       'password'
     ]
 
