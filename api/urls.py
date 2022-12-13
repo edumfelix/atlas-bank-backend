@@ -12,6 +12,7 @@ from api.views.EmprestimoView import SolicitarEmprestimo, AprovarEmprestimo
 route = routers.SimpleRouter()
 route.register(r'cadastro/gerente', CadastroGerenteViewSet)
 route.register(r'cadastro/usuario', CadastroUsuarioViewSet)
+route.register(r'aprovar/emprestimo', AprovarEmprestimo)
 
 
 urlpatterns = [
@@ -22,7 +23,7 @@ urlpatterns = [
     path('perfil/', ProfileView.as_view()),
 
     path('solicitar/emprestimo/', SolicitarEmprestimo.as_view()),
-    path('aprovar/emprestimo/<int:pk>', AprovarEmprestimo.as_view()),
+    # path('aprovar/emprestimo/<int:pk>', AprovarEmprestimo.as_view()),
     
     path('api/setcsrf/', setCSRFCookie.as_view())
 ]
